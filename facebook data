@@ -1,0 +1,34 @@
+//create data subsets
+import pandas as pd
+df = pd.read_csv("dataset_Facebook.csv",delimiter=';')
+// then next line
+df
+
+
+//merge data
+subset1 = df[['Type','Category','Post Month']]
+print(subset1.head(6))
+//next  line
+subset2 = df[['Paid','Post Hour','Lifetime Post Consumers']]
+print(subset2.head(6))
+//next line
+merged = pd.concat([subset1,subset2], axis=1)
+print(merged.head(6))
+
+
+//sort data
+sorted_data = merged.sort_values(by=['Lifetime Post Consumers'], ascending=False)
+print(sorted_data.head(6))
+
+//transposing data
+merged.T
+
+//give a shape
+df.shape
+
+//give a reshape
+import numpy as np
+
+arr = np.array(df[['Post Month', 'Post Weekday']].head(6))
+reshaped = arr.reshape(6, 2)
+print(reshaped)
