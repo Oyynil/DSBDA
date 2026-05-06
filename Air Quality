@@ -59,54 +59,6 @@ print("Missing Values:\n",df.isnull().sum())
 //next line
 print("\nData Types:\n",df.dtypes)
 
-//5) data model building
-
-df.columns = df.columns.str.strip()
-
-
-print(df.columns)
-
-target_column = 'PE' 
-
-
-X = df.drop(target_column, axis=1)
-y = df[target_column]
-
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    train_size=0.8,
-    random_state=6,
-    shuffle=True
-)
-
-
-lr_model = LinearRegression()
-lr_model.fit(X_train, y_train)
-
-lr_pred = lr_model.predict(X_test)
-                           
-dt_model = DecisionTreeRegressor()
-dt_model.fit(X_train, y_train)
-
-dt_pred = dt_model.predict(X_test)
-
-
-def evaluate_model(name, y_true, y_pred):
-    r2 = r2_score(y_true, y_pred)
-    mae = mean_absolute_error(y_true, y_pred)
-    mse = mean_squared_error(y_true, y_pred)
-
-    print(f"\n{name} Model:")
-    print(f"R² Score     : {r2:.4f}")
-    print(f"MAE          : {mae:.4f}")
-    print(f"MSE          : {mse:.4f}")
-    print(f"Accuracy (%) : {r2*100:.2f}%")
-
-
-evaluate_model("Linear Regression", y_test, lr_pred)
-evaluate_model("Decision Tree Regressor", y_test, dt_pred)
 
 
 
