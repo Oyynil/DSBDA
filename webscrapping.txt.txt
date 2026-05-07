@@ -1,0 +1,29 @@
+# Required Libraries Import Karna
+import requests  # Web se data fetch karne ke liye
+from bs4 import BeautifulSoup  # HTML ko parse karne ke liye
+
+# Step 1: Website URL ko request bhejna
+url = 'https://books.toscrape.com/'
+
+response = requests.get(url)  # Request bhejte hain aur response lete hain
+
+# HTML ko parse karte hain
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Step 2: Sabhi books ko find karna
+books = soup.find_all('article', class_='product_pod')
+
+# Step 3: Har book ka data extract karna
+for book in books:
+
+    # Book ka naam
+    name = book.h3.a['title']
+
+    # Book ka price
+    price = book.find('p', class_='price_color').text
+
+    # Output print karna
+    print(f"📚 Book Name: {name}")
+    print(f"💰 Price: {price}")
+
+    print("-" * 50)
